@@ -36,6 +36,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import AuthPage from './AuthPage';
 
 const Header = () => {
   const router = useRouter();
@@ -54,6 +55,8 @@ const Header = () => {
   const handleLoginClick = () => {
     dispatch(toggleLoginDialog());
     setIsDropdownOpen(false);
+    console.log('Login Clicked');
+    // setIsLoginOpen(true);
   };
   const handleProtectionNavigation = (href: string) => {
     // if (user) {
@@ -95,6 +98,11 @@ const Header = () => {
             onclick: handleLoginClick,
           },
         ]),
+        {
+            icon: <Lock className="h-5 w-5" />,
+            label: 'Login/Sign Up',
+            onclick: () => handleLoginClick(),
+          },
     {
       icon: <User className="h-5 w-5" />,
       label: 'My Profile',
@@ -166,10 +174,10 @@ const Header = () => {
           </Link>
         ) : (
           <button
-            key={index}
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm hover:bg-gray-200"
-            onClick={() => item.onclick}
-          >
+  key={index}
+  className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm hover:bg-gray-200"
+  onClick={() => item.onclick && item.onclick()} // Actually call the function
+>
             {item.icon}
             <span>{item?.label}</span>
             {item.content && <div className="mt-1">{item?.content}</div>}
@@ -317,6 +325,7 @@ const Header = () => {
           </div>
         </Link>
       </div>
+      <AuthPage isLoginOpen={isLoginOpen} setIsLoginOpen={handleLoginClick}/>
     </header>
   );
 };

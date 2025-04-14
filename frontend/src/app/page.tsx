@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import {
+  ArrowRight,
   BookOpen,
   Camera,
   CreditCard,
@@ -16,6 +17,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import NewBooks from './components/NewBooks';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function Home() {
   const bannerImages = [
@@ -234,6 +236,43 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+
+      {/* Blog Section */}
+      <section className='py-16 bg-[rgb(221,234,254)]'>
+        <div className='container mx-auto px-4'>
+          <h2 className='text-3xl font-bold text-center mb-12'>Read from our <span className='text-primary'>Blog</span></h2>
+      
+         <div className='grid md:grid-cols-3 gap-8'>
+          {blogPosts.map((post, index)=>(
+            <Card
+            key={index}
+            className="h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-lg" >
+              <CardContent className='p-0 flex flex-col h-full'>
+                <div className='relative h-48 overflow-hidden'>
+                  <Image 
+                  src={post.imageSrc}
+                  alt={post.title}
+                  layout="fill"
+                 objectFit='cover'
+                 className='transition-transform duration-300 hover:scale-105'/>
+                </div>
+                <div className='p-6 flex flex-col flex-grow'>
+                  <h3 className='text-xl font-semibold mb-2 flex item-center gap-2'>
+                    <div className='bg-primary-100 p-2 rounded-full'>
+                      {post.icon}
+                    </div>
+                    <span className='flex-grow'>{post.title}</span>
+                  </h3>
+                  <p className='text-gray-600 text-sm flex-grow'>{post.description}</p>
+                  <Button variant='link' className='mt-4 p-0 flex items-center text-primary'>Read More <ArrowRight className='w-4 h-4' /></Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          </div>  
+        </div> 
       </section>
 
     </main>
